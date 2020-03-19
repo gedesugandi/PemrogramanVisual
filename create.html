@@ -4,7 +4,7 @@
     <title>Document</title>
 </head>
 <body>
-    <h3>create appointment</h3>
+    <h3>Membuat Appoinment Baru DIsini Gan</h3>
     <form id="form">
         <label for="name">Name: </label><br>
         <input type="text" name="name" required>
@@ -39,7 +39,7 @@
                     penampungData[form.elements[i].name] = form.elements[i].value;
             }
 
-            ipcRenderer.send("appointment:create", penampungData);
+            ipcRenderer.send("appointment:creates", penampungData);
         });
     </script>
 </body>

@@ -66,7 +66,7 @@ const MyBiodata = () =>{
     data.on("closed", ()=> (data = null));
 };
 
-ipcMain.on("appointment:create", (event, appointment) =>{
+ipcMain.on("appointment:creates", (event, appointment) =>{
     console.log(appointment);
 });
 
