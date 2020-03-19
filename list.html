@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Document</title>
+</head>
+<body>
+    <h1>List Window</h1>
+    <div id="list"></div>
+</body>
+
+<script>
+
+const electron = require("electron");
+const {ipcRenderer} = electron;
+ipcRenderer.send("appointment:request:list");
+ipcRenderer.on("appointment:request:list", (event, appoinments) => {
+    const listDiv = document.getElementById("list");
+    appoinments.foreEach(appoinment => {
+        const appointmentDive = document.createElement("div");
+
+        const NameParagraf = document.createElement("p");
+        NameParagraf.innerHTML = `Name : ${appoinment.name}`;
+
+        const NumberParagraf = document.createElement("p");
+        NumberParagraf.innerHTML = `Phone Number : ${appoinment.number}`;
+
+        const DateParagraf = document.createElement("p");
+        DateParagraf.innerHTML = `Date : ${appoinment.date}`;
+
+        const HourParagraf = document.createElement("p");
+        HourParagraf.innerHTML = `Hour : ${appoinment.hour}`;
+
+        const SymptonsParagraf = document.createElement("p");
+        SymptonsParagraf.innerHTML = `Symptons : ${appoinment.symptons}`;
+
+        const Done = document.createElement("p");
+        Done.innerHTML = `Done : ${appoinment.done ?  "Yes" : "No!"}`;   
+        
+        const hr = document.createElement("hr");
+        appointmentDive.appendChild(NameParagraf);
+        appointmentDive.appendChild(NumberParagraf);
+        appointmentDive.appendChild(DateParagraf);
+        appointmentDive.appendChild(HourParagraf);
+        appointmentDive.appendChild(SymptonsParagraf);
+        appointmentDive.appendChild(Done);
+        appointmentDive.appendChild(hr);
+
+        listDiv.append(appointmentDive);
+        
+
+    })
+})
+
+</script>
+
+</html>
