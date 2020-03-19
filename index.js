@@ -71,7 +71,7 @@ ipcMain.on("appointment:creates", (event, appointment) =>{
 });
 
 ipcMain.on("appointment:request:list", event => {
-    console.log("Here");
+    console.log("Here!");
 })
 
 const  menuTemplate = [{
