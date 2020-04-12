@@ -75,11 +75,11 @@ ipcMain.on("appointment:request:list", event => {
 });
 
 ipcMain.on("appointment:request:today", event => {
-    console.log("Here2!");
+    console.log("Here2");
 });
 
 ipcMain.on("appointment:done", (event, id) => {
-    console.log("Here!3");
+    console.log("Here3");
 });
 
 const  menuTemplate = [{
