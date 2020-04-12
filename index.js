@@ -1,11 +1,12 @@
 const electron = require("electron");
-
+const uuid = require("uuid");
+const { v4 } = uuid;
 const{app, BrowserWindow, Menu, ipcMain} = electron;
 let todayWindow;
 let createWindow;
 let listWindow;
 let data;
-
+let allAppointment = [];
 
 app.on("ready", () =>{
     todayWindow = new BrowserWindow({
@@ -67,7 +68,12 @@ const MyBiodata = () =>{
 };
 
 ipcMain.on("appointment:creates", (event, appointment) =>{
-    console.log(appointment);
+    appointment["id"] = uuid.v1();
+    appointment["done"] = 0;
+    allAppointment.push(appointment);
+
+    createWindow.close();
+    console.log(allAppointment);
 });
 
 ipcMain.on("appointment:request:list", event => {
