@@ -13,9 +13,9 @@
 const electron = require("electron");
 const {ipcRenderer} = electron;
 ipcRenderer.send("appointment:request:list");
-ipcRenderer.on("appointment:request:list", (event, appoinments) => {
+ipcRenderer.on("appointment:response:list", (event, appoinments) => {
     const listDiv = document.getElementById("list");
-    appoinments.foreEach(appoinment => {
+    appoinments.forEach(appoinment => {
         const appointmentDive = document.createElement("div");
 
         const NameParagraf = document.createElement("p");

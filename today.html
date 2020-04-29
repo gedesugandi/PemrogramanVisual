@@ -4,18 +4,16 @@
     <title>Halaman Today</title>
 </head>
 <body>
-    <h1>Ini Halaman Today</h1>
-    <div id="list"></div>
+    <h1>Ini Halaman Today Brow</h1>
+    <div id="today"></div>
 </body>
-
 <script>
-
 const electron = require("electron");
 const {ipcRenderer} = electron;
 ipcRenderer.send("appointment:request:today");
-ipcRenderer.on("appointment:request:today", (event, appoinments) => {
-    const listDiv = document.getElementById("list");
-    appoinments.foreEach(appoinment => {
+ipcRenderer.on("appointment:response:today", (event, appoinments) => {
+    const listDiv = document.getElementById("today");
+    appoinments.forEach(appoinment => {
         const appointmentDive = document.createElement("div");
 
         const NameParagraf = document.createElement("p");
@@ -35,15 +33,13 @@ ipcRenderer.on("appointment:request:today", (event, appoinments) => {
 
         const Done = document.createElement("p");
         Done.innerHTML = `Done : ${appoinment.done ?  "Yes" : "No!"}`;   
-        
+
         const doneButton = document.createElement("button");
         doneButton.innerHTML = "Done";
         doneButton.disabled = appoinment.done ? true : false;
         doneButton.onclick = () => done(appoinment.id);
-
-
+        
         const hr = document.createElement("hr");
-
         appointmentDive.appendChild(NameParagraf);
         appointmentDive.appendChild(NumberParagraf);
         appointmentDive.appendChild(DateParagraf);
@@ -59,7 +55,7 @@ ipcRenderer.on("appointment:request:today", (event, appoinments) => {
     })
 })
 const done = id => {
-    ipcRenderer.send("appoinment:done", id);
+    ipcRenderer.send("appointment:done", id);
 }
 </script>
 

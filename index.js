@@ -71,22 +71,35 @@ ipcMain.on("appointment:creates", (event, appointment) =>{
     appointment["id"] = uuid.v1();
     appointment["done"] = 0;
     allAppointment.push(appointment);
-
+    sendTodayAppointment();
     createWindow.close();
+    // createWindow.reload();
     console.log(allAppointment);
 });
 
 ipcMain.on("appointment:request:list", event => {
-    console.log("Here!");
+    listWindow.webContents.send('appointment:response:list', allAppointment);
 });
 
 ipcMain.on("appointment:request:today", event => {
+    sendTodayAppointment();
     console.log("Here2");
 });
 
 ipcMain.on("appointment:done", (event, id) => {
     console.log("Here3");
 });
+
+
+const sendTodayAppointment = () => {
+    const today = new Date().toISOString().slice(0, 10);
+    const filtered = allAppointment.filter(
+        appointment => appointment.date === today
+    );
+
+    todayWindow.webContents.send('appointment:response:today', filtered);
+}
+
 
 const  menuTemplate = [{
     label: "File",
