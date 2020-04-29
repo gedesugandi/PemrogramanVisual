@@ -1,5 +1,6 @@
 const electron = require("electron");
 const uuid = require("uuid");
+const fs = require("fs");
 const { v4 } = uuid;
 const{app, BrowserWindow, Menu, ipcMain} = electron;
 let todayWindow;
@@ -7,6 +8,13 @@ let createWindow;
 let listWindow;
 let data;
 let allAppointment = [];
+
+fs.readFile("db.json", (err, JsonAppointment) =>{
+    if(!err){
+        const oldAppointment = JSON.parse(JsonAppointment);
+        allAppointment = oldAppointment;
+    }
+});
 
 app.on("ready", () =>{
     todayWindow = new BrowserWindow({
@@ -18,6 +26,10 @@ app.on("ready", () =>{
 
     todayWindow.loadURL(`file://${__dirname}/today.html`);
     todayWindow.on("closed", ()=>{
+
+        const jsonAppointment = JSON.stringify(allAppointment);
+        fs.writeFileSync("db.json",jsonAppointment);
+
         app.quit();
         todayWindow = null;
     });
